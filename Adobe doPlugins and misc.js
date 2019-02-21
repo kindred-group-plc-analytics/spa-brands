@@ -70,7 +70,7 @@ if (a == 'view') {
     if (!b['cp.utag_main_adb_locale'])
         utag.loader.SC('utag_main', { 'adb_client_id': adb_locale + ';exp-session' });
     if (!b['cp.utag_main_adb_jurisdiction'])
-        utag.loader.SC('utag_main', { 'jurisdiction': adb_jurisdiction + ';exp-session' }); Î
+        utag.loader.SC('utag_main', { 'jurisdiction': adb_jurisdiction + ';exp-session' });
 
 } else {
     b.adb_client_id = b['cp.utag_main_adb_client_id'];
