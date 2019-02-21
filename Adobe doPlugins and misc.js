@@ -42,16 +42,44 @@ b.adb_timestamp = Math.round(new Date().getTime() / 1000).toString();
 
 b.adb_launch_build_date = utag.cfg.v || '';
 
-var client_id = [(b.clientId || b['cp.clientId'] || 'No ClientID'), (b.cms || 'No CMS'), (b.locale || 'No Locale'), (b.jurisdiction || 'No Juristiction')];
-var client_id = client_id.join('^');
+var adb_client_id_part = (b.clientId || b['cp.clientId'] || 'No ClientID');
+var adb_cms = (b.cms || 'No CMS');
+var adb_locale = (b.locale || 'No Locale');
+var adb_jurisdiction = (b.jurisdiction || 'No Juristiction');
+
+// var client_id = [(b.clientId || b['cp.clientId'] || 'No ClientID'), (b.cms || 'No CMS'), (b.locale || 'No Locale'), (b.jurisdiction || 'No Juristiction')];
+var adb_client_id = [client_id, cms, locale, jurisdiction].join('^');
 
 if (a == 'view') {
-    b.adb_client_id = client_id;
+    b.adb_client_id = adb_client_id;
     // Persist client ID for link events that are missing the information.
     if (!b['cp.utag_main_adb_client_id'])
-        utag.loader.SC('utag_main', { 'adb_client_id': client_id + ';exp-session' });
+        utag.loader.SC('utag_main', { 'adb_client_id': adb_client_id + ';exp-session' });
+
+    // Updated version
+    b.adb_client_id_part = adb_client_id_part;
+    b.adb_locale = adb_locale;
+    b.adb_cms = adb_cms;
+    b.adb_jurisdiction = adb_jurisdiction;
+
+
+    if (!b['cp.utag_main_adb_client_id_part'])
+        utag.loader.SC('utag_main', { 'client_id_part': adb_client_id_part + ';exp-session' });
+    if (!b['cp.utag_main_adb_cms'])
+        utag.loader.SC('utag_main', { 'cms': adb_cms + ';exp-session' });
+    if (!b['cp.utag_main_adb_locale'])
+        utag.loader.SC('utag_main', { 'adb_client_id': adb_locale + ';exp-session' });
+    if (!b['cp.utag_main_adb_jurisdiction'])
+        utag.loader.SC('utag_main', { 'jurisdiction': adb_jurisdiction + ';exp-session' }); Î
+
 } else {
     b.adb_client_id = b['cp.utag_main_adb_client_id'];
+
+    // Updated Version
+    b.adb_client_id_part = b['cp.utag_main_adb_client_id_part'];
+    b.adb_locale = b['cp.utag_main_adb_locale'];
+    b.adb_cms = b['cp.utag_main_adb_cms'];
+    b.adb_jurisdiction = b['cp.utag_main_adb_jurisdiction'];
 }
 
 b.full_page_url = window.location.href;
