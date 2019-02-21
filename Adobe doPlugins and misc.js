@@ -56,26 +56,25 @@ if (a == 'view') {
     if (!b['cp.utag_main_adb_client_id'])
         utag.loader.SC('utag_main', { 'adb_client_id': adb_client_id + ';exp-session' });
 
-    // Updated version
+    // Updated version - Variables are splitted so they can be used in rules.
     b.adb_client_id_part = adb_client_id_part;
     b.adb_locale = adb_locale;
     b.adb_cms = adb_cms;
     b.adb_jurisdiction = adb_jurisdiction;
 
-
     if (!b['cp.utag_main_adb_client_id_part'])
-        utag.loader.SC('utag_main', { 'client_id_part': adb_client_id_part + ';exp-session' });
+        utag.loader.SC('utag_main', { 'adb_client_id_part': adb_client_id_part + ';exp-session' });
     if (!b['cp.utag_main_adb_cms'])
-        utag.loader.SC('utag_main', { 'cms': adb_cms + ';exp-session' });
+        utag.loader.SC('utag_main', { 'adb_cms': adb_cms + ';exp-session' });
     if (!b['cp.utag_main_adb_locale'])
-        utag.loader.SC('utag_main', { 'adb_client_id': adb_locale + ';exp-session' });
+        utag.loader.SC('utag_main', { 'adb_locale': adb_locale + ';exp-session' });
     if (!b['cp.utag_main_adb_jurisdiction'])
-        utag.loader.SC('utag_main', { 'jurisdiction': adb_jurisdiction + ';exp-session' });
+        utag.loader.SC('utag_main', { 'adb_jurisdiction': adb_jurisdiction + ';exp-session' });
 
 } else {
     b.adb_client_id = b['cp.utag_main_adb_client_id'];
 
-    // Updated Version
+    // Updated version - Variables are splitted so they can be used in rules.
     b.adb_client_id_part = b['cp.utag_main_adb_client_id_part'];
     b.adb_locale = b['cp.utag_main_adb_locale'];
     b.adb_cms = b['cp.utag_main_adb_cms'];
