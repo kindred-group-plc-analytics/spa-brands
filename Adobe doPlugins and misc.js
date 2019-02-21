@@ -48,7 +48,7 @@ var adb_locale = (b.locale || 'No Locale');
 var adb_jurisdiction = (b.jurisdiction || 'No Juristiction');
 
 // var client_id = [(b.clientId || b['cp.clientId'] || 'No ClientID'), (b.cms || 'No CMS'), (b.locale || 'No Locale'), (b.jurisdiction || 'No Juristiction')];
-var adb_client_id = [client_id, cms, locale, jurisdiction].join('^');
+var adb_client_id = [adb_client_id_part, cms, locale, jurisdiction].join('^');
 
 if (a == 'view') {
     b.adb_client_id = adb_client_id;
