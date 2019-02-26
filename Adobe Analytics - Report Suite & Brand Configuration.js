@@ -65,6 +65,6 @@ if (!b.adb_report_suite) {
     b.adb_report_suite = SPA_BRANDS_REPORT_SUITE + SUFFIX_PROD;
 }
 
-if (brand == 'maria') {
+if (b.adb_site_brand == 'maria') {
     b.adb_report_suite += ',unibetlondonmariaprod';
 }

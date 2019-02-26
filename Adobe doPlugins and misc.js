@@ -83,14 +83,15 @@ if (a == 'view') {
 
 b.full_page_url = window.location.href;
 
+b.adb_previous_page_name = b['cp.utag_main__prevpage'];
+b.adb_previous_full_url = b['cp.utag_main__prevnew_full_url'];
+
 // Code that needs to execute only on page views and not on link events.
 if (a == 'view') {
-    b.adb_previous_page_name = b['cp.utag_main__prevpage'];
+    // Over-write cookies only on view events.    
     utag.loader.SC('utag_main', {
         '_prevpage': b.adb_pageName + ';exp-session'
     });
-
-    b.adb_previous_full_url = b['cp.utag_main__prevnew_full_url'];
     utag.loader.SC('utag_main', {
         '_prevnew_full_url': b.full_page_url + ';exp-session'
     });
