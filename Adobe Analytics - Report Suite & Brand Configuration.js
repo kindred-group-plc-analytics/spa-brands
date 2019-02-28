@@ -65,6 +65,9 @@ if (!b.adb_report_suite) {
     b.adb_report_suite = SPA_BRANDS_REPORT_SUITE + SUFFIX_PROD;
 }
 
+// Temporary secondary server calls to the old report suites.
 if (b.adb_site_brand == 'maria') {
-    b.adb_report_suite += ',unibetlondonmariaprod';
+    b.adb_report_suite += ',unibetlondonmaria' + (isProduction ? SUFFIX_PROD : SUFFIX_DEV);
+} else if (b.adb_site_brand == 'igame') {
+    b.adb_report_suite += ',unibetlondonigame' + (isProduction ? SUFFIX_PROD : SUFFIX_DEV);
 }
