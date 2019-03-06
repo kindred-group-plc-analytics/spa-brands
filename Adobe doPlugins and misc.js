@@ -2,53 +2,47 @@ var functions = (utag.helpers && utag.helpers.functions) ? utag.helpers.function
 
 b.campaign_tracking_code = functions.getTrackingCode();
 
+if (!b.adb_section) {
 var section = (window.location.pathname !== '/' ? window.location.pathname.split('/')[1] : 'home');
-b.adb_section = section;
-if (section == 'promotions' || section == 'tarjoukset') {
+    if (b.adb_section == 'promotions' || b.adb_section == 'tarjoukset') {
     // tarjoukset is the promotions listing page in KP;
     var promotionName = functions.getPromotionName();
     if (promotionName && promotionName !== '')
         b.adb_promotion_name = promotionName;
 }
+}
 
-if (b.adb_section === 'bannerFlow' && b.adb_bannerflow_name && b.adb_pageName) {
-    //Do nothing. Page Name has already been set up by bannerflow-specific extension.
-} else if (b.brand == 'maria') {
+if (!b.adb_pageName) {
+    // If pageName has been defined upstream i.e. more specific extension do not update.
+    if (b.brand == 'maria') {
     // Pass data Layer to Maria function.
     // Within the function, the proper page name is returned.
     b.adb_pageName = functions.getPageNameMaria(b);
 } else {
     b.adb_pageName = functions.getPageName(b.navigationState);
 }
+}
 
 // Game pages have on the URL the game version.
 // Remove this to decrease granularity
-if (section == 'pelit' || section == 'game') {
+if (b.adb_section == 'pelit' || b.adb_section == 'game') {
     var re = /(-mobile)?[0-9\-]*((\/|:)play-for-fun)?$/;
     b.adb_pageName = b.adb_pageName.toString().replace(re, '');
 }
 
 b.adb_logged_in = functions.getLoginStatus();
-
 b.adb_domain = window.location.hostname;
-
 b.customer_id = b.userId || '';
-
 b.adb_currency_code = b.currency || 'GBP';
-
 b.adb_new_repeat = functions.getNewRepeat();
-
 b.adb_time_parting = functions.timeParting('n', '0');
-
 b.adb_timestamp = Math.round(new Date().getTime() / 1000).toString();
-
 b.adb_launch_build_date = utag.cfg.v || '';
 
 var adb_client_id_part = (b.clientId || b['cp.clientId'] || 'No ClientID');
 var adb_cms = (b.cms || 'No CMS');
 var adb_locale = (b.locale || 'No Locale');
 var adb_jurisdiction = (b.jurisdiction || 'No Juristiction');
-
 // var client_id = [(b.clientId || b['cp.clientId'] || 'No ClientID'), (b.cms || 'No CMS'), (b.locale || 'No Locale'), (b.jurisdiction || 'No Juristiction')];
 var adb_client_id = [adb_client_id_part, adb_cms, adb_locale, adb_jurisdiction].join('^');
 
