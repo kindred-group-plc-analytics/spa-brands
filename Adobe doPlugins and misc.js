@@ -3,13 +3,13 @@ var functions = (utag.helpers && utag.helpers.functions) ? utag.helpers.function
 b.campaign_tracking_code = functions.getTrackingCode();
 
 if (!b.adb_section) {
-var section = (window.location.pathname !== '/' ? window.location.pathname.split('/')[1] : 'home');
+    var section = (window.location.pathname !== '/' ? window.location.pathname.split('/')[1] : 'home');
     if (b.adb_section == 'promotions' || b.adb_section == 'tarjoukset') {
-    // tarjoukset is the promotions listing page in KP;
-    var promotionName = functions.getPromotionName();
-    if (promotionName && promotionName !== '')
-        b.adb_promotion_name = promotionName;
-}
+        // tarjoukset is the promotions listing page in KP;
+        var promotionName = functions.getPromotionName();
+        if (promotionName && promotionName !== '')
+            b.adb_promotion_name = promotionName;
+    }
 }
 
 if (!b.adb_pageName) {
