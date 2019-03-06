@@ -3,7 +3,7 @@ var adf_timestamp = new Date().toString();
 
 var adfPageName = function (adf_page_name) {
     var itm = "{";
-    if (/^(loginSuccess|depositCompleted|registrationSuccessful|pageLoaded)$/.test(b.event_name)) {
+    if (/^(loginSuccess|depositCompleted|registrationSuccessful|pageLoaded|gameLaunch)$/.test(b.event_name)) {
         if (typeof (b.amount) != "undefined") itm += 'sl:"' + b.amount.toString() + '",';
         if (typeof (b.paymentTransactionId) != "undefined") itm += 'id:"' + b.paymentTransactionId + '",';
         if (typeof (b.userId) != "undefined") itm += 'sv1:"' + b.userId + '",';
@@ -11,8 +11,12 @@ var adfPageName = function (adf_page_name) {
         if (typeof (b.adf_timestamp) != "undefined") itm += 'sv3:"' + adf_timestamp + '",';
         if (typeof (b.adb_section) != "undefined") itm += 'sv4:"' + b.adb_section + '",';
         if (typeof (b.currency) != "undefined") itm += 'sv5:"' + b.currency + '",';
+        if (b.event_name == 'gameLaunch' && typeof(b.gameId) !='undefined') itm += 'sv8:"' + b.gameId + '",';
+        if (b.event_name == 'gameLaunch' && typeof(b.adb_pageName) !='undefined') itm += 'sv9:"' + b.adb_pageName + '",';
+        if (b.event_name == 'gameLaunch' && typeof(b.isPlayForFun) !='undefined') itm += 'sv10:"' + ['playForFun',b.isPlayForFun].join(':') + '",';
         if (typeof (b['cp.utag_main_adform']) != "undefined") itm += 'sv20:"' + b['cp.utag_main_adform'] + '",';
     }
+    if (adf_page_name == "page view") itm += 'sv13:"' + document.location.pathname + '",';
     itm += 'sv6:"' + adf_page_name + '"';
     itm += "}";
     itm = itm.replace(',}', '}');
@@ -40,11 +44,19 @@ var re = /(-mobile)?[0-9\-]*((\/|:)play-for-fun)?$/;
 genericPageName = genericPageName.replace(re, '');
 
 if (b.event_name == 'depositCompleted') {
-    genericPageName = 'Deposit Completed';
+    if (b.noOfDeposits == 1) {
+        genericPageName = 'First deposit intent';
+    } else if (b.noOfDeposits > 1){
+        genericPageName = 'Further deposit intent';
+    }
 } else if (b.event_name == 'loginSuccess') {
-    genericPageName = 'Login Completed';
+    genericPageName = 'login succesfull';
 } else if (b.event_name == 'registrationSuccessful') {
-    genericPageName = 'Registration Completed';
+    genericPageName = 'Registration Complete';
+} else if (b.event_name == 'gameLaunch'){
+    genericPageName = 'game launch';
+} else {
+    genericPageName = 'page view';
 }
 
 var adf_itm = adfPageName(genericPageName);
