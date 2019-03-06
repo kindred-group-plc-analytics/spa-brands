@@ -11,7 +11,9 @@ if (section == 'promotions' || section == 'tarjoukset') {
         b.adb_promotion_name = promotionName;
 }
 
-if (b.brand == 'maria') {
+if (b.adb_section === 'bannerFlow' && b.adb_bannerflow_name && b.adb_pageName) {
+    //Do nothing. Page Name has already been set up by bannerflow-specific extension.
+} else if (b.brand == 'maria') {
     // Pass data Layer to Maria function.
     // Within the function, the proper page name is returned.
     b.adb_pageName = functions.getPageNameMaria(b);
