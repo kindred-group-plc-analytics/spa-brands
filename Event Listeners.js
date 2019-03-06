@@ -58,15 +58,19 @@ var eventTrigger = function eventTrigger(evt) {
 
 var dtmElement = document.getElementById('dtmEventTarget');
 
-// Page View Event Listener
+// Page View
 dtmElement.addEventListener('pageView', pageLoadWrapper(false));
 
 // Fallback method incase dtmEvent is delayed.
 // window.addEventListener("load", pageLoadWrapper(true));
 
+// Login
 dtmElement.addEventListener('loginSuccess', eventTrigger);
 
-// Game Launch Event Listener
+// Registration
+dtmElement.addEventListener('registrationSuccessful', eventTrigger);
+
+// Game Launch
 dtmElement.addEventListener('gameLaunch', eventTrigger);
 
 // Bonus Accepted
@@ -74,6 +78,9 @@ dtmElement.addEventListener('bonusAccept', eventTrigger);
 
 // Withdrawl Completed 
 dtmElement.addEventListener('withdrawalCompleted', eventTrigger);
+
+// Deposit Requested
+dtmElement.addEventListener('depositCompleted', eventTrigger);
 
 // Promotion Opt-in Event - Explicit promotions
 dtmElement.addEventListener('PromotionOptIn', eventTrigger);
