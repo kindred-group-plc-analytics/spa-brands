@@ -8,7 +8,7 @@ var adfPageName = function (adf_page_name) {
         if (typeof (b.paymentTransactionId) != "undefined") itm += 'id:"' + b.paymentTransactionId + '",';
         if (typeof (b.userId) != "undefined") itm += 'sv1:"' + b.userId + '",';
         if (typeof (b.noOfDeposits) != "undefined") itm += 'sv2:"' + b.noOfDeposits.toString() + '",';
-        if (typeof (b.adf_timestamp) != "undefined") itm += 'sv3:"' + adf_timestamp + '",';
+        if (typeof (adf_timestamp) != "undefined") itm += 'sv3:"' + adf_timestamp + '",';
         if (typeof (b.adb_section) != "undefined") itm += 'sv4:"' + b.adb_section + '",';
         if (typeof (b.currency) != "undefined") itm += 'sv5:"' + b.currency + '",';
         if (b.event_name == 'gameLaunch' && typeof(b.gameId) !='undefined') itm += 'sv8:"' + b.gameId + '",';
