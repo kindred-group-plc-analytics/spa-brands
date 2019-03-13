@@ -15,12 +15,12 @@ if (!b.adb_section) {
 if (!b.adb_pageName) {
     // If pageName has been defined upstream i.e. more specific extension do not update.
     if (b.brand == 'maria') {
-    // Pass data Layer to Maria function.
-    // Within the function, the proper page name is returned.
-    b.adb_pageName = functions.getPageNameMaria(b);
-} else {
-    b.adb_pageName = functions.getPageName(b.navigationState);
-}
+        // Pass data Layer to Maria function.
+        // Within the function, the proper page name is returned.
+        b.adb_pageName = functions.getPageNameMaria(b);
+    } else {
+        b.adb_pageName = functions.getPageName(b.navigationState);
+    }
 }
 
 // Game pages have on the URL the game version.
@@ -44,50 +44,69 @@ var adb_cms = (b.cms || 'No CMS');
 var adb_locale = (b.locale || 'No Locale');
 var adb_jurisdiction = (b.jurisdiction || 'No Juristiction');
 // var client_id = [(b.clientId || b['cp.clientId'] || 'No ClientID'), (b.cms || 'No CMS'), (b.locale || 'No Locale'), (b.jurisdiction || 'No Juristiction')];
-var adb_client_id = [adb_client_id_part, adb_cms, adb_locale, adb_jurisdiction].join('^');
+var adb_client_id = [adb_cms, adb_client_id_part, adb_locale, adb_jurisdiction].join('^');
 
 if (a == 'view') {
     b.adb_client_id = adb_client_id;
+    functions.storageManagement._setStorage('sessionStorage', 'adb_client_id', adb_client_id);
     // Persist client ID for link events that are missing the information.
-    if (!b['cp.utag_main_adb_client_id'])
-        utag.loader.SC('utag_main', { 'adb_client_id': adb_client_id + ';exp-session' });
+    // if (!b['cp.utag_main_adb_client_id'])
+    //     utag.loader.SC('utag_main', { 'adb_client_id': adb_client_id + ';exp-session' });
 
     // Updated version - Variables are splitted so they can be used in rules.
     b.adb_client_id_part = adb_client_id_part;
+    functions.storageManagement._setStorage('sessionStorage', 'adb_client_id_part', adb_client_id_part);
     b.adb_locale = adb_locale;
+    functions.storageManagement._setStorage('sessionStorage', 'adb_locale', adb_locale);
     b.adb_cms = adb_cms;
+    functions.storageManagement._setStorage('sessionStorage', 'adb_cms', adb_cms);
     b.adb_jurisdiction = adb_jurisdiction;
+    functions.storageManagement._setStorage('sessionStorage', 'adb_jurisdiction', adb_jurisdiction);
 
-    if (!b['cp.utag_main_adb_client_id_part'])
-        utag.loader.SC('utag_main', { 'adb_client_id_part': adb_client_id_part + ';exp-session' });
-    if (!b['cp.utag_main_adb_cms'])
-        utag.loader.SC('utag_main', { 'adb_cms': adb_cms + ';exp-session' });
-    if (!b['cp.utag_main_adb_locale'])
-        utag.loader.SC('utag_main', { 'adb_locale': adb_locale + ';exp-session' });
-    if (!b['cp.utag_main_adb_jurisdiction'])
-        utag.loader.SC('utag_main', { 'adb_jurisdiction': adb_jurisdiction + ';exp-session' });
+    // if (!b['cp.utag_main_adb_client_id_part'])
+    //     utag.loader.SC('utag_main', { 'adb_client_id_part': adb_client_id_part + ';exp-session' });
+    // if (!b['cp.utag_main_adb_cms'])
+    //     utag.loader.SC('utag_main', { 'adb_cms': adb_cms + ';exp-session' });
+    // if (!b['cp.utag_main_adb_locale'])
+    //     utag.loader.SC('utag_main', { 'adb_locale': adb_locale + ';exp-session' });
+    // if (!b['cp.utag_main_adb_jurisdiction'])
+    //     utag.loader.SC('utag_main', { 'adb_jurisdiction': adb_jurisdiction + ';exp-session' });
 
 } else {
-    b.adb_client_id = b['cp.utag_main_adb_client_id'];
+    // b.adb_client_id = b['cp.utag_main_adb_client_id'];
+    b.adb_client_id = functions.storageManagement._getStorage('sessionStorage', 'adb_client_id');
 
     // Updated version - Variables are splitted so they can be used in rules.
-    b.adb_client_id_part = b['cp.utag_main_adb_client_id_part'];
-    b.adb_locale = b['cp.utag_main_adb_locale'];
-    b.adb_cms = b['cp.utag_main_adb_cms'];
-    b.adb_jurisdiction = b['cp.utag_main_adb_jurisdiction'];
+    // b.adb_client_id_part = b['cp.utag_main_adb_client_id_part'];
+    b.adb_client_id_part = functions.storageManagement._getStorage('sessionStorage', 'adb_client_id_part');
+
+    //b.adb_locale = b['cp.utag_main_adb_locale'];
+    b.adb_locale = functions.storageManagement._getStorage('sessionStorage', 'adb_locale');
+
+    // b.adb_cms = b['cp.utag_main_adb_cms'];
+    b.adb_cms = functions.storageManagement._getStorage('sessionStorage', 'adb_cms');
+
+    // b.adb_jurisdiction = b['cp.utag_main_adb_jurisdiction'];
+    b.adb_jurisdiction = functions.storageManagement._getStorage('sessionStorage', 'adb_jurisdiction');
 }
 
 b.full_page_url = window.location.href;
 
+b.adb_previous_full_url = functions.storageManagement._getStorage('sessionStorage', 'adb_prevnew_full_url');
+b.adb_previous_page_name = functions.storageManagement._getStorage('sessionStorage', 'adb_previous_page_name');
 // Code that needs to execute only on page views and not on link events.
 if (a == 'view') {
     // Over-write cookies only on view events.    
-    utag.loader.SC('utag_main', {
-        '_prevpage': b.adb_pageName + ';exp-session'
-    });
-    b.adb_previous_page_name = b['cp.utag_main__prevpage'];
-    utag.loader.SC('utag_main', {
-        '_prevnew_full_url': b.full_page_url + ';exp-session'
-    });
-    b.adb_previous_full_url = b['cp.utag_main__prevnew_full_url'];
+    // utag.loader.SC('utag_main', {
+    //     '_prevpage': b.adb_pageName + ';exp-session'
+    // });
+    // b.adb_previous_page_name = b['cp.utag_main__prevpage'];
+    // utag.loader.SC('utag_main', {
+    //     '_prevnew_full_url': b.full_page_url + ';exp-session'
+    // });
+    // b.adb_previous_full_url = b['cp.utag_main__prevnew_full_url'];
+    
+    // Set logic using sessionStorage.
+    functions.storageManagement._setStorage('sessionStorage', 'adb_prevnew_full_url', b.full_page_url);
+    functions.storageManagement._setStorage('sessionStorage', 'adb_previous_page_name', b.adb_pageName);
 }
