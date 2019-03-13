@@ -39,6 +39,7 @@ b.adb_time_parting = functions.timeParting('n', '0');
 b.adb_timestamp = Math.round(new Date().getTime() / 1000).toString();
 b.adb_launch_build_date = utag.cfg.v || '';
 
+// Client ID and locale information section
 var adb_client_id_part = (b.clientId || b['cp.clientId'] || 'No ClientID');
 var adb_cms = (b.cms || 'No CMS');
 var adb_locale = (b.locale || 'No Locale');
@@ -92,10 +93,9 @@ if (a == 'view') {
 
 b.full_page_url = window.location.href;
 
-b.adb_previous_full_url = functions.storageManagement._getStorage('sessionStorage', 'adb_prevnew_full_url');
-b.adb_previous_page_name = functions.storageManagement._getStorage('sessionStorage', 'adb_previous_page_name');
-// Code that needs to execute only on page views and not on link events.
-if (a == 'view') {
+
+// Previous page information section
+if (a === 'view') {
     // Over-write cookies only on view events.    
     // utag.loader.SC('utag_main', {
     //     '_prevpage': b.adb_pageName + ';exp-session'
@@ -105,8 +105,18 @@ if (a == 'view') {
     //     '_prevnew_full_url': b.full_page_url + ';exp-session'
     // });
     // b.adb_previous_full_url = b['cp.utag_main__prevnew_full_url'];
-    
+
     // Set logic using sessionStorage.
+    b.adb_previous_full_url = functions.storageManagement._getStorage('sessionStorage', 'adb_prevnew_full_url');
+    b.adb_previous_page_name = functions.storageManagement._getStorage('sessionStorage', 'adb_previous_page_name');
+
     functions.storageManagement._setStorage('sessionStorage', 'adb_prevnew_full_url', b.full_page_url);
     functions.storageManagement._setStorage('sessionStorage', 'adb_previous_page_name', b.adb_pageName);
+
+    // For link events, need to maintain the original values from the previous page and not the current
+    functions.storageManagement._setStorage('sessionStorage', 'adb_prevnew_full_url_link', b.adb_previous_full_url);
+    functions.storageManagement._setStorage('sessionStorage', 'adb_previous_page_name_link', b.adb_previous_page_name);
+} else if (a === 'link') {
+    b.adb_previous_full_url = functions.storageManagement._getStorage('sessionStorage', 'adb_prevnew_full_url_link');
+    b.adb_previous_page_name = functions.storageManagement._getStorage('sessionStorage', 'adb_previous_page_name_link');
 }
