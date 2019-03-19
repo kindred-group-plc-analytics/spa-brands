@@ -22,8 +22,10 @@ var pageLoadWrapper = function (isFallbackPageView, event_sub_name) {
             var dataLayer = evt.detail;
 
             // ADC-1004 - Treat login pop-up as link and not view.
+            // A utag.link event treats previous page information differently than a utag.view event.
             if (dataLayer.navigationState === 'login') {
-                eventTrigger(evt, 'loginPrompt');
+                // Custom event name is sent as pageLoaded so that the generic Page Views Feed in ES still works.
+                eventTrigger(evt, 'pageLoaded');
             } else {
                 utag_data_custom = formatDataLayer(dataLayer, 'pageLoaded');
 
