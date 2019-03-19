@@ -21,27 +21,23 @@ var pageLoadWrapper = function (isFallbackPageView, event_sub_name) {
 
             var dataLayer = evt.detail;
 
-            utag_data_custom = formatDataLayer(dataLayer, 'pageLoaded' );
+            // ADC-1004 - Treat login pop-up as link and not view.
+            if (dataLayer.navigationState === 'login') {
+                evt.type = 'login prompt';
+                eventTrigger(evt);
+            } else {
+                utag_data_custom = formatDataLayer(dataLayer, 'pageLoaded');
 
-            if (isFallbackPageView == true)
-                utag_data_custom['page_loaded_fallback'] = true;
+                if (isFallbackPageView == true)
+                    utag_data_custom['page_loaded_fallback'] = true;
 
-            if (event_sub_name)
-                utag_data_custom['event_sub_name'] = event_sub_name;
+                if (event_sub_name)
+                    utag_data_custom['event_sub_name'] = event_sub_name;
 
-            utag.pageLoadedFallback = true;
-            utag.view(utag_data_custom);
+                utag.pageLoadedFallback = true;
+                utag.view(utag_data_custom);
+            }
         }
-        /*
-        utag.view({
-            'event_name': 'pageLoaded',
-            'user_id': window.cms.user.customerId,
-            'is_app': window.cms.device.isApp,
-            'timestamp': new Date(),
-            'newly_auth': window.cms.user.newlyAuthenticated,
-            'adf_channel': _satellite.cookie.get("AdformChannel")
-        });
-        */
     }
     return pageLoad;
 }
