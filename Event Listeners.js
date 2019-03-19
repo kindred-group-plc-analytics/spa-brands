@@ -23,8 +23,7 @@ var pageLoadWrapper = function (isFallbackPageView, event_sub_name) {
 
             // ADC-1004 - Treat login pop-up as link and not view.
             if (dataLayer.navigationState === 'login') {
-                evt.type = 'login prompt';
-                eventTrigger(evt);
+                eventTrigger(evt, 'loginPrompt');
             } else {
                 utag_data_custom = formatDataLayer(dataLayer, 'pageLoaded');
 
@@ -42,9 +41,13 @@ var pageLoadWrapper = function (isFallbackPageView, event_sub_name) {
     return pageLoad;
 }
 
-var eventTrigger = function eventTrigger(evt) {
+var eventTrigger = function eventTrigger(evt, customEventName) {
 
-    var eventName = evt.type;
+    var eventName
+    if (custom_event_name)
+        eventName = customEventName;
+    else
+        eventName = evt.type;
     var dataLayer = evt.detail;
 
     utag_data_custom = formatDataLayer(dataLayer, eventName);
