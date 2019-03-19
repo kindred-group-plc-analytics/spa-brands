@@ -44,7 +44,7 @@ var pageLoadWrapper = function (isFallbackPageView, event_sub_name) {
 var eventTrigger = function eventTrigger(evt, customEventName) {
 
     var eventName
-    if (custom_event_name)
+    if (customEventName)
         eventName = customEventName;
     else
         eventName = evt.type;
