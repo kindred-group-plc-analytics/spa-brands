@@ -85,3 +85,6 @@ dtmElement.addEventListener('depositCompleted', eventTrigger);
 
 // Promotion Opt-in Event - Explicit promotions
 dtmElement.addEventListener('PromotionOptIn', eventTrigger);
+
+//Self assessment
+dtmElement.addEventListener('selfTestCompleted', eventTrigger);
