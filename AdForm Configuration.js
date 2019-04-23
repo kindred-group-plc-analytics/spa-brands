@@ -15,6 +15,7 @@ var adfPageName = function (adf_page_name) {
         if (b.event_name == 'gameLaunch' && typeof(b.adb_pageName) !='undefined') itm += 'sv9:"' + b.adb_pageName + '",';
         if (b.event_name == 'gameLaunch' && typeof(b.isPlayForFun) !='undefined') itm += 'sv10:"' + ['playForFun',b.isPlayForFun].join(':') + '",';
         if (typeof (b['cp.utag_main_adform']) != "undefined") itm += 'sv20:"' + b['cp.utag_main_adform'] + '",';
+        itm += 'sv21:"' + document.referrer + '",';
     }
     if (adf_page_name == "page view") itm += 'sv13:"' + document.location.pathname + '",';
     itm += 'sv6:"' + adf_page_name + '"';
