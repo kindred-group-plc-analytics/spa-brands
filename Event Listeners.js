@@ -101,8 +101,11 @@ dtmElement.addEventListener('promoCtaClick', eventTrigger);
 
 dtmElement.addEventListener('promoListView', eventTrigger);
 
-dtmElement.addEventListener('tournamentInteraction', eventTrigger);
+// Not available yet
+// dtmElement.addEventListener('tournamentInteraction', eventTrigger);
 
-dtmElement.addEventListener('gameInteraction', eventTrigger);
+// Not available yet
+// dtmElement.addEventListener('gameInteraction', eventTrigger);
 
-dtmElement.addEventListener('promoInteraction', eventTrigger);
+// Not available yet
+// dtmElement.addEventListener('promoInteraction', eventTrigger);
