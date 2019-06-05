@@ -56,6 +56,8 @@ if (b.event_name == 'depositCompleted') {
     genericPageName = 'Registration Complete';
 } else if (b.event_name == 'gameLaunch'){
     genericPageName = 'game launch';
+} else if (a === 'view' && b.navigationState === 'registration') {
+    genericPageName = 'Registration Start';
 } else {
     genericPageName = 'page view';
 }
