@@ -44,8 +44,15 @@ var adb_client_id_part = (b.clientId || b['cp.clientId'] || 'No ClientID');
 var adb_cms = (b.cms || 'No CMS');
 var adb_locale = (b.locale || 'No Locale');
 var adb_jurisdiction = (b.jurisdiction || 'No Juristiction');
-// var client_id = [(b.clientId || b['cp.clientId'] || 'No ClientID'), (b.cms || 'No CMS'), (b.locale || 'No Locale'), (b.jurisdiction || 'No Juristiction')];
 var adb_client_id = [adb_cms, adb_client_id_part, adb_locale, adb_jurisdiction].join('^');
+
+// Home Page finding methods
+//
+var hpFindingMethod = functions.storageManagement._getStorage('sessionStorage', 'homePageFindingMethod');
+if (hpFindingMethod) {
+    b.adb_evar5 = hpFindingMethod;
+    functions.storageManagement._deleteStorage('sessionStorage', 'homePageFindingMethod');
+}
 
 if (a == 'view') {
     b.adb_client_id = adb_client_id;
@@ -63,15 +70,6 @@ if (a == 'view') {
     functions.storageManagement._setStorage('sessionStorage', 'adb_cms', adb_cms);
     b.adb_jurisdiction = adb_jurisdiction;
     functions.storageManagement._setStorage('sessionStorage', 'adb_jurisdiction', adb_jurisdiction);
-
-    // if (!b['cp.utag_main_adb_client_id_part'])
-    //     utag.loader.SC('utag_main', { 'adb_client_id_part': adb_client_id_part + ';exp-session' });
-    // if (!b['cp.utag_main_adb_cms'])
-    //     utag.loader.SC('utag_main', { 'adb_cms': adb_cms + ';exp-session' });
-    // if (!b['cp.utag_main_adb_locale'])
-    //     utag.loader.SC('utag_main', { 'adb_locale': adb_locale + ';exp-session' });
-    // if (!b['cp.utag_main_adb_jurisdiction'])
-    //     utag.loader.SC('utag_main', { 'adb_jurisdiction': adb_jurisdiction + ';exp-session' });
 
 } else {
     // b.adb_client_id = b['cp.utag_main_adb_client_id'];
@@ -96,16 +94,6 @@ b.full_page_url = window.location.href;
 
 // Previous page information section
 if (a === 'view') {
-    // Over-write cookies only on view events.    
-    // utag.loader.SC('utag_main', {
-    //     '_prevpage': b.adb_pageName + ';exp-session'
-    // });
-    // b.adb_previous_page_name = b['cp.utag_main__prevpage'];
-    // utag.loader.SC('utag_main', {
-    //     '_prevnew_full_url': b.full_page_url + ';exp-session'
-    // });
-    // b.adb_previous_full_url = b['cp.utag_main__prevnew_full_url'];
-
     // Set logic using sessionStorage.
     b.adb_previous_full_url = functions.storageManagement._getStorage('sessionStorage', 'adb_prevnew_full_url');
     b.adb_previous_page_name = functions.storageManagement._getStorage('sessionStorage', 'adb_previous_page_name');
