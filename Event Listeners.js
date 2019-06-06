@@ -89,8 +89,6 @@ dtmElement.addEventListener('PromotionOptIn', eventTrigger);
 //Self assessment
 dtmElement.addEventListener('selfTestCompleted', eventTrigger);
 
-dtmElement.addEventListener('selfTestCompleted', eventTrigger);
-
 dtmElement.addEventListener('tournamentOptIn', eventTrigger);
 
 dtmElement.addEventListener('tournamentView', eventTrigger);
@@ -99,7 +97,8 @@ dtmElement.addEventListener('promoDetailsView', eventTrigger);
 
 dtmElement.addEventListener('promoCtaClick', eventTrigger);
 
-dtmElement.addEventListener('promoListView', eventTrigger);
+// Not available yet
+// dtmElement.addEventListener('promoListView', eventTrigger);
 
 // Not available yet
 // dtmElement.addEventListener('tournamentInteraction', eventTrigger);
