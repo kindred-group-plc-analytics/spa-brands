@@ -97,6 +97,9 @@ dtmElement.addEventListener('promoDetailsView', eventTrigger);
 
 dtmElement.addEventListener('promoCtaClick', eventTrigger);
 
+// Quick Registration Pop-up
+dtmElement.addEventListener('quickRegistrationPopup', eventTrigger);
+
 // Not available yet
 // dtmElement.addEventListener('promoListView', eventTrigger);
 
