@@ -1,7 +1,9 @@
 var formatDataLayer = function (dataLayer, event_name) {
     utag_data_custom = {};
     utag_data_custom['event_name'] = event_name;
-
+    
+    console.log('Analytics Event Name: ' + event_name);
+    console.dir(dataLayer);
     for (var property in dataLayer) {
         if (dataLayer.hasOwnProperty(property)) {
             utag_data_custom[property] = dataLayer[property];
