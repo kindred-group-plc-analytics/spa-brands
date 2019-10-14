@@ -17,7 +17,7 @@ var adfPageName = function (adf_page_name) {
         if (typeof (b['cp.utag_main_adform']) != "undefined") itm += 'sv20:"' + b['cp.utag_main_adform'] + '",';
         itm += 'sv21:"' + document.referrer + '",';
     }
-    if (adf_page_name == "page view") itm += 'sv13:"' + document.location.pathname + '",';
+    if (adf_page_name == "page view") itm += 'sv13:"' + document.location.hostname + document.location.pathname + '",';
     itm += 'sv6:"' + adf_page_name + '"';
     itm += "}";
     itm = itm.replace(',}', '}');
