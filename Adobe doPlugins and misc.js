@@ -108,3 +108,9 @@ if (a === 'view') {
     b.adb_previous_full_url = functions.storageManagement._getStorage('sessionStorage', 'adb_prevnew_full_url_link');
     b.adb_previous_page_name = functions.storageManagement._getStorage('sessionStorage', 'adb_previous_page_name_link');
 }
+
+var verification_status = functions.storageManagement._getStorage("sessionStorage","_verificationStatus") || "";
+if(verification_status!==""){
+  b.verification_status=verification_status;
+  if(b.tealium_event==="view") functions.storageManagement._deleteStorage("sessionStorage","_verificationStatus")
+}
